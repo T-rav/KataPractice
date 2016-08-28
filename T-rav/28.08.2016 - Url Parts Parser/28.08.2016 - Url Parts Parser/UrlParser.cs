@@ -16,11 +16,7 @@ namespace _28._08._2016___Url_Parts_Parser
         public UrlParts Parse(string url)
         {
             var protocol = GetProtocol(url);
-            var subdomain = GetSubdomain(url);
-            var domainName = GetDomainName(url);
-            var port = GetPort(url, protocol);
-            var path = GetPath(url);
-            return new UrlParts(protocol, subdomain, domainName, port, path);
+            return new UrlParts(protocol, GetSubdomain(url), GetDomainName(url), GetPort(url, protocol), GetPath(url));
         }
 
         private string GetPath(string url)
@@ -46,8 +42,6 @@ namespace _28._08._2016___Url_Parts_Parser
         private static string GetCustomPort(string url)
         {
             var portIndex = url.LastIndexOf(":", StringComparison.InvariantCulture);
-            if (portIndex <= 0) return string.Empty;
-
             var portAndPath = url.Substring(portIndex + 1);
             var port = portAndPath.TakeWhile(c => c != '/').ToArray();
             return new string(port);
@@ -94,7 +88,10 @@ namespace _28._08._2016___Url_Parts_Parser
 
         private string GetSubdomain(string url)
         {
-            if (!HasSubdomain(url)) return string.Empty;
+            if (!HasSubdomain(url))
+            {
+                return string.Empty;
+            }
 
             var subdomain = url.SkipWhile(c => c != '/').Skip(2).TakeWhile(c => c != '.').ToArray();
             return new string(subdomain);
