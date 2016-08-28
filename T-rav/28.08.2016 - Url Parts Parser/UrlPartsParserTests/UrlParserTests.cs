@@ -102,8 +102,7 @@ namespace UrlPartsParserTests
             //---------------Test Result -----------------------
             Assert.AreEqual(expected, result.DomainName);
         }
-
-
+        
         private UrlParser CreateUrlParser()
         {
             var parser = new UrlParser();
