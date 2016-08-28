@@ -102,7 +102,140 @@ namespace UrlPartsParserTests
             //---------------Test Result -----------------------
             Assert.AreEqual(expected, result.DomainName);
         }
-        
+
+        [Test]
+        public void Parse_WhenUrlIsHttpAndDoesNotContainPort_ShouldReturnPort80()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "80";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("http://cows.org");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Port);
+        }
+
+        [Test]
+        public void Parse_WhenUrlIsHttpsAndDoesNotContainPort_ShouldReturnPort80()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "443";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("https://beef.org");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Port);
+        }
+
+        [Test]
+        public void Parse_WhenUrlIsFtpAndDoesNotContainPort_ShouldReturnPort21()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "21";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("ftp://files.haysales.net");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Port);
+        }
+
+        [Test]
+        public void Parse_WhenUrlIsSftpAndDoesNotContainPort_ShouldReturnPort21()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "22";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("sftp://uploads.milkprices.org");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Port);
+        }
+
+        [Test]
+        public void Parse_WhenUrlIsUnhandledProtocolAndDoesNotContainPort_ShouldReturnEmptyStringForPort()
+        {
+            //---------------Set up test pack-------------------
+            var expected = string.Empty;
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("gopher://stuff.um.edu");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Port);
+        }
+
+        [Test]
+        public void Parse_WhenUrlContainsSpecifiedPortAndNoPath_ShouldReturnPortInUrl()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "8080";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("http://www.mydomain.com:8080");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Port);
+        }
+
+        [Test]
+        public void Parse_WhenUrlContainsSpecifiedPortAndPath_ShouldReturnPortInUrl()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "8090";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("https://myfiles.com:8090/downloads");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Port);
+        }
+
+        [Test]
+        public void Parse_WhenUrlContainsMultiPartPath_ShouldReturnFullPath()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "download/tar.gz";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("ftp://ftp.linux.org/download/tar.gz");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Path);
+        }
+
+        [Test]
+        public void Parse_WhenUrlContainsNoPath_ShouldReturnEmptyString()
+        {
+            //---------------Set up test pack-------------------
+            var expected = string.Empty;
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("http://www.coolstuffz.net");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Path);
+        }
+
+        // todo only /
+        [Test]
+        public void Parse_WhenUrlContainsSinglePartPath_ShouldReturnPath()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "backup.tar.gz";
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("sftp://files.kungfuactiongrip.com/backup.tar.gz");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Path);
+        }
+
+        [Test]
+        public void Parse_WhenUrlContainsOnlySlash_ShouldReturnEmptyString()
+        {
+            //---------------Set up test pack-------------------
+            var expected = string.Empty;
+            var parser = CreateUrlParser();
+            //---------------Execute Test ----------------------
+            var result = parser.Parse("https://tddbuddy.com/");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, result.Path);
+        }
+
         private UrlParser CreateUrlParser()
         {
             var parser = new UrlParser();
