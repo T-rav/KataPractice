@@ -109,18 +109,5 @@ namespace UrlPartsParserTests
             var parser = new UrlParser();
             return parser;
         }
-
-        //[Test]
-        //public void Parse_WhenUrlNoSubdomain_ShouldEmptyStringForSubdomain()
-        //{
-        //    //---------------Set up test pack-------------------
-        //    var parser = new UrlParser();
-        //    //---------------Assert Precondition----------------
-
-        //    //---------------Execute Test ----------------------
-        //    var result = parser.Parse("http://bar.com");
-        //    //---------------Test Result -----------------------
-        //    Assert.AreEqual(string.Empty, result[1]);
-        //}
     }
 }
