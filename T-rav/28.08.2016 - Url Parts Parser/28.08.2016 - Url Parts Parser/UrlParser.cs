@@ -13,15 +13,25 @@ namespace _28._08._2016___Url_Parts_Parser
             return new UrlParts(protocolString, subdomainString, domainNameString);
         }
 
-        private static string GetDomainName(string url)
+        private string GetDomainName(string url)
         {
-            var domainName = url.SkipWhile(c => c != '/').Skip(2).TakeWhile(c => c != '.').ToArray();
+            var domainName = GetDomainNameWhenNoSubdomain(url);
             if (HasSubdomain(url))
             {
-                domainName = url.SkipWhile(c => c != '.').Skip(1).TakeWhile(c => c != '.').ToArray();
+                domainName = GetDomainNameWhenSubdomain(url);
             }
             var domainNameString = new string(domainName);
             return domainNameString;
+        }
+
+        private char[] GetDomainNameWhenSubdomain(string url)
+        {
+            return url.SkipWhile(c => c != '.').Skip(1).TakeWhile(c => c != '.').ToArray();
+        }
+
+        private char[] GetDomainNameWhenNoSubdomain(string url)
+        {
+            return url.SkipWhile(c => c != '/').Skip(2).TakeWhile(c => c != '.').ToArray();
         }
 
         private string GetProtocol(string url)
@@ -42,23 +52,9 @@ namespace _28._08._2016___Url_Parts_Parser
             return subdomainString;
         }
 
-        private static bool HasSubdomain(string url)
+        private bool HasSubdomain(string url)
         {
             return url.IndexOf(".", StringComparison.InvariantCulture) != url.LastIndexOf(".", StringComparison.InvariantCulture);
         }
-    }
-
-    public class UrlParts
-    {
-        public UrlParts(string protocol, string subdomain, string domainName)
-        {
-            Protocol = protocol;
-            Subdomain = subdomain;
-            DomainName = domainName;
-        }
-
-        public string Protocol { get; private set; }
-        public string Subdomain { get; private set; }
-        public string DomainName { get; private set; }
     }
 }
