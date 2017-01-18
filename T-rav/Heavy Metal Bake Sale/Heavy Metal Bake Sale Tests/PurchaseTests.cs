@@ -11,6 +11,7 @@ namespace Heavy_Metal_Bake_Sale_Tests
         // todo : seems like a sub vs mock kata?
         // todo : defering decision, no real console concerns yet.
         // todo : tdd like you mean it, functions first
+        // todo : top-down vertical slicing
 
         [Test]
         public void GetItemsToPurchase_WhenInvoked_ShouldPrintItemsToPurchase()
@@ -127,7 +128,20 @@ namespace Heavy_Metal_Bake_Sale_Tests
             Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
         }
 
-        private static Purchase CreatePurchaseWithConsole(TestConsole testConsole)
+        [Test]
+        public void PrintTotal_WhenPurchasingTwoItemsWithSpaceBetweenComma_ShouldReturnTotal()
+        {
+            //---------------Set up test pack-------------------
+            var expected = "Total > $2.15";
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
+            //---------------Execute Test ----------------------
+            purchase.PrintTotal("W , B");
+            //---------------Test Result -----------------------
+            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+        }
+
+        private static Purchase CreatePurchaseWithConsole(IConsole testConsole)
         {
             var purchase = new Purchase(testConsole);
             return purchase;
