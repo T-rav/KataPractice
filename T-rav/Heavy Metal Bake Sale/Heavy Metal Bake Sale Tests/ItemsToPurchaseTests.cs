@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Heavy_Metal_Bake_Sale_Tests
@@ -7,6 +8,7 @@ namespace Heavy_Metal_Bake_Sale_Tests
     public class ItemsToPurchaseTests
     {
         // todo : seems like a sub vs mock kata?
+        // todo : defering decision, no real console concerns yet.
 
         [Test]
         public void GetItemsToPurchase_WhenInvoked_ShouldPrintItemsToPurchase()
@@ -80,9 +82,29 @@ namespace Heavy_Metal_Bake_Sale_Tests
             Assert.AreEqual("Total > $1.50", result);
         }
 
+        [Test]
+        public void PrintTotal_WhenPurchasingTwoItems_ShouldReturnTotal()
+        {
+            //---------------Set up test pack-------------------
+            //---------------Execute Test ----------------------
+            var result = PrintTotal("W,B");
+            //---------------Test Result -----------------------
+            Assert.AreEqual("Total > $2.15", result);
+        }
+
+        [Test]
+        public void PrintTotal_WhenPurchasingThreeItems_ShouldReturnTotal()
+        {
+            //---------------Set up test pack-------------------
+            //---------------Execute Test ----------------------
+            var result = PrintTotal("W,B,C");
+            //---------------Test Result -----------------------
+            Assert.AreEqual("Total > $3.50", result);
+        }
+
         private string PrintTotal(string itemsPurchased)
         {
-            var items = new Dictionary<string, double>
+            var itemPrices = new Dictionary<string, double>
             {
                 { "B", 0.65 },
                 { "M", 1.00 },
@@ -90,10 +112,16 @@ namespace Heavy_Metal_Bake_Sale_Tests
                 { "W", 1.50 }
             };
 
-            double itemPrice;
-            items.TryGetValue(itemsPurchased, out itemPrice);
+            var purchases = itemsPurchased.Split(',');
+            var total = 0.0;
+            foreach (var purchase in purchases)
+            {
+                double itemPrice;
+                itemPrices.TryGetValue(purchase, out itemPrice);
+                total += itemPrice;
+            }
 
-            var printTotal = itemPrice.ToString("F2");
+            var printTotal = total.ToString("F2");
             return $"Total > ${printTotal}";
         }
 
