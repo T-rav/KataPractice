@@ -18,7 +18,7 @@ namespace Heavy_Metal_Bake_Sale_Tests
             //---------------Set up test pack-------------------
             var expected = "Items to Purchase > ";
 
-            var testConsole = new TestConsoleLineReader(string.Empty);
+            var testConsole = new TestConsole(string.Empty);
             var purchase = new Purchase(testConsole);
             //---------------Execute Test ----------------------
             purchase.GetItemsToPurchase();
@@ -30,7 +30,7 @@ namespace Heavy_Metal_Bake_Sale_Tests
         public void GetItemsToPurchase_WhenPurchasingBrownie_ShouldReadB()
         {
             //---------------Set up test pack-------------------
-            var testConsole = new TestConsoleLineReader("B");
+            var testConsole = new TestConsole("B");
             var purchase = new Purchase(testConsole);
             //---------------Execute Test ----------------------
             var result = purchase.GetItemsToPurchase();
@@ -42,7 +42,7 @@ namespace Heavy_Metal_Bake_Sale_Tests
         public void GetItemsToPurchase_WhenPurchasingMuffin_ShouldReadM()
         {
             //---------------Set up test pack-------------------
-            var testConsole = new TestConsoleLineReader("M");
+            var testConsole = new TestConsole("M");
             var purchase = new Purchase(testConsole);
             //---------------Execute Test ----------------------
             var result = purchase.GetItemsToPurchase();
@@ -122,25 +122,26 @@ namespace Heavy_Metal_Bake_Sale_Tests
             Assert.AreEqual(expected, result);
         }
 
+        // todo : How to expose the testConsole using the Humaid Principle?!
         private Purchase CreatePurchase()
         {
-            var testConsole = new TestConsoleLineReader();
+            var testConsole = new TestConsole();
             var purchase = new Purchase(testConsole);
             return purchase;
         }
     }
 
-    public class TestConsoleLineReader : IConsole
+    public class TestConsole : IConsole
     {
         private readonly string _lineToRead;
 
         public List<string> Buffer { get;  }
 
-        public TestConsoleLineReader(): this(string.Empty)
+        public TestConsole(): this(string.Empty)
         {
         }
 
-        public TestConsoleLineReader(string lineToRead)
+        public TestConsole(string lineToRead)
         {
             _lineToRead = lineToRead;
             Buffer = new List<string>();

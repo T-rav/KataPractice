@@ -4,7 +4,7 @@ namespace Heavy_Metal_Bake_Sale
 {
     public class Purchase
     {
-        private IConsole _console;
+        private readonly IConsole _console;
 
         public Purchase(IConsole console)
         {
