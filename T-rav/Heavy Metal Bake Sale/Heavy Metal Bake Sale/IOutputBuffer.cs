@@ -1,8 +1,7 @@
 ﻿namespace Heavy_Metal_Bake_Sale
 {
-    public interface IConsole
+    public interface IOutputBuffer
     {
-        string ReadLine();
         void WriteLine(string output);
     }
 }

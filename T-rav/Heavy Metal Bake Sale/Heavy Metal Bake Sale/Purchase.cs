@@ -5,17 +5,19 @@ namespace Heavy_Metal_Bake_Sale
 {
     public class Purchase
     {
-        private readonly IConsole _console;
+        private readonly IOutputBuffer _outputBuffer;
+        private readonly IInputBuffer _inputBuffer;
 
-        public Purchase(IConsole console)
+        public Purchase(IInputBuffer inputBuffer, IOutputBuffer outputBuffer)
         {
-            _console = console;
+            _inputBuffer = inputBuffer;
+            _outputBuffer = outputBuffer;
         }
 
         public string GetItemsToPurchase()
         {
-            _console.WriteLine("Items to Purchase > ");
-            return _console.ReadLine();
+            _outputBuffer.WriteLine("Items to Purchase > ");
+            return _inputBuffer.ReadLine();
         }
 
         public void PrintTotal(string itemsPurchased)
@@ -31,7 +33,7 @@ namespace Heavy_Metal_Bake_Sale
             var total = TotalPurchases(itemsPurchased, itemPrices);
 
             var printTotal = total.ToString("F2");
-            _console.WriteLine($"Total > ${printTotal}");
+            _outputBuffer.WriteLine($"Total > ${printTotal}");
         }
 
         private double TotalPurchases(string itemsPurchased, IReadOnlyDictionary<string, double> itemPrices)
