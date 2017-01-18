@@ -1,18 +1,20 @@
 ﻿using System.Collections.Generic;
-using Heavy_Metal_Bake_Sale_Tests;
 
 namespace Heavy_Metal_Bake_Sale
 {
     public class Purchase
     {
-        public string GetItemsToPurchase()
+        private IConsole _console;
+
+        public Purchase(IConsole console)
         {
-            return "Items to Pruchase > ";
+            _console = console;
         }
 
-        public string GetItemsToPurchase(IConsole consoleLineReader)
+        public string GetItemsToPurchase()
         {
-            return consoleLineReader.ReadLine();
+            _console.WriteLine("Items to Purchase > ");
+            return _console.ReadLine();
         }
 
         public string PrintTotal(string itemsPurchased)
