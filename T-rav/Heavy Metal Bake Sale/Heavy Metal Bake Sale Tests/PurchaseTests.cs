@@ -20,20 +20,20 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Items to Purchase > ";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.GetItemsToPurchase();
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         [Test]
         public void GetItemsToPurchase_WhenPurchasingBrownie_ShouldReadB()
         {
             //---------------Set up test pack-------------------
-            var testConsole = new TestInputBuffer("B");
-            var purchase = CreatePurchaseWithInputBuffer(testConsole);
+            var inputBuffer = new TestInputBuffer("B");
+            var purchase = CreatePurchaseWithInputBuffer(inputBuffer);
             //---------------Execute Test ----------------------
             var result = purchase.GetItemsToPurchase();
             //---------------Test Result -----------------------
@@ -44,8 +44,8 @@ namespace Heavy_Metal_Bake_Sale_Tests
         public void GetItemsToPurchase_WhenPurchasingMuffin_ShouldReadM()
         {
             //---------------Set up test pack-------------------
-            var testConsole = new TestInputBuffer("M");
-            var purchase = CreatePurchaseWithInputBuffer(testConsole);
+            var inputBuffer = new TestInputBuffer("M");
+            var purchase = CreatePurchaseWithInputBuffer(inputBuffer);
             //---------------Execute Test ----------------------
             var result = purchase.GetItemsToPurchase();
             //---------------Test Result -----------------------
@@ -57,12 +57,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $0.65";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.PrintTotal("B");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -70,12 +70,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $1.00";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.PrintTotal("M");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -83,12 +83,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $1.35";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.PrintTotal("C");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -96,12 +96,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $1.50";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.PrintTotal("W");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -109,12 +109,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $2.15";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.PrintTotal("W,B");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -122,12 +122,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $3.50";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.PrintTotal("W,B,C");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -135,12 +135,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $2.15";
-            var testConsole = new TestOutputBuffer();
-            var purchase = CreatePurchaseWithOutputBuffer(testConsole);
+            var outputBuffer = new TestOutputBuffer();
+            var purchase = CreatePurchaseWithOutputBuffer(outputBuffer);
             //---------------Execute Test ----------------------
             purchase.PrintTotal("W , B");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
+            Assert.AreEqual(expected, outputBuffer.Buffer.FirstOrDefault());
         }
 
         private static Purchase CreatePurchaseWithOutputBuffer(IOutputBuffer testOutputBuffer)
