@@ -17,9 +17,8 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Items to Purchase > ";
-
-            var testConsole = new TestConsole(string.Empty);
-            var purchase = new Purchase(testConsole);
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
             purchase.GetItemsToPurchase();
             //---------------Test Result -----------------------
@@ -31,19 +30,19 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var testConsole = new TestConsole("B");
-            var purchase = new Purchase(testConsole);
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
             var result = purchase.GetItemsToPurchase();
             //---------------Test Result -----------------------
             Assert.AreEqual("B", result);
         }
-        
+
         [Test]
         public void GetItemsToPurchase_WhenPurchasingMuffin_ShouldReadM()
         {
             //---------------Set up test pack-------------------
             var testConsole = new TestConsole("M");
-            var purchase = new Purchase(testConsole);
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
             var result = purchase.GetItemsToPurchase();
             //---------------Test Result -----------------------
@@ -55,11 +54,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $0.65";
-            var purchase = CreatePurchase();
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
-            var result = purchase.PrintTotal("B");
+            purchase.PrintTotal("B");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -67,11 +67,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $1.00";
-            var purchase = CreatePurchase();
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
-            var result = purchase.PrintTotal("M");
+            purchase.PrintTotal("M");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -79,11 +80,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $1.35";
-            var purchase = CreatePurchase();
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
-            var result = purchase.PrintTotal("C");
+            purchase.PrintTotal("C");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -91,11 +93,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $1.50";
-            var purchase = CreatePurchase();
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
-            var result = purchase.PrintTotal("W");
+            purchase.PrintTotal("W");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -103,11 +106,12 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $2.15";
-            var purchase = CreatePurchase();
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
-            var result = purchase.PrintTotal("W,B");
+            purchase.PrintTotal("W,B");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
         }
 
         [Test]
@@ -115,17 +119,16 @@ namespace Heavy_Metal_Bake_Sale_Tests
         {
             //---------------Set up test pack-------------------
             var expected = "Total > $3.50";
-            var purchase = CreatePurchase();
+            var testConsole = new TestConsole();
+            var purchase = CreatePurchaseWithConsole(testConsole);
             //---------------Execute Test ----------------------
-            var result = purchase.PrintTotal("W,B,C");
+            purchase.PrintTotal("W,B,C");
             //---------------Test Result -----------------------
-            Assert.AreEqual(expected, result);
+            Assert.AreEqual(expected, testConsole.Buffer.FirstOrDefault());
         }
 
-        // todo : How to expose the testConsole using the Humaid Principle?!
-        private Purchase CreatePurchase()
+        private static Purchase CreatePurchaseWithConsole(TestConsole testConsole)
         {
-            var testConsole = new TestConsole();
             var purchase = new Purchase(testConsole);
             return purchase;
         }

@@ -17,7 +17,7 @@ namespace Heavy_Metal_Bake_Sale
             return _console.ReadLine();
         }
 
-        public string PrintTotal(string itemsPurchased)
+        public void PrintTotal(string itemsPurchased)
         {
             var itemPrices = new Dictionary<string, double>
             {
@@ -37,7 +37,7 @@ namespace Heavy_Metal_Bake_Sale
             }
 
             var printTotal = total.ToString("F2");
-            return $"Total > ${printTotal}";
+            _console.WriteLine($"Total > ${printTotal}");
         }
     }
 }
