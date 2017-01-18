@@ -8,8 +8,8 @@ namespace Heavy_Metal_Bake_Sale_Tests
     [TestFixture]
     public class PurchaseTests
     {
-        // todo : seems like a sub vs mock kata?
-        // todo : defering decision, no real outputBuffer concerns yet.
+        // todo : seems like a sub vs mock kata.... More blended.
+        // todo : defering decision, no real outputBuffer concerns to start with
         // todo : tdd like you mean it, functions first
         // todo : top-down vertical slicing
         // todo : SOLID, Open/Closed, Single Responsiblity
